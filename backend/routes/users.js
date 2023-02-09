@@ -2,8 +2,10 @@ const router=require('express').Router()
 
 const {getUsers,addUser,getUser,updateUser,deleteUser}=require('../controllers/users')
 
+const {protect} = require("../middlewares/auth")
+
 router.route('/')
-    .get(getUsers)
+    .get(protect, getUsers)
     .post(addUser)
 router.route('/:id')
     .get(getUser)

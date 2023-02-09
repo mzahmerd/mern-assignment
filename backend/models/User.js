@@ -42,4 +42,18 @@ UserSchema.pre('save', async function (next){
 UserSchema.methods.matchPassword=async function(password) {
     return await bcrypt.compare(password,this.password)
 }
+
+// Sign in JWT and return the token
+UserSchema.methods.getSignedJwtToken = function(){
+    const payload = {
+        id: this._id
+    }
+    const options = {
+        expiresIn:process.env.JWT_EXPIRE
+    }
+    const token = jwt.sign(payload, process.env.JWT_SECRET, options)
+
+    return token
+}
+
 module.exports = model("User", UserSchema)
