@@ -1,4 +1,6 @@
 const {Schema, model}= require("mongoose")
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const UserSchema = Schema({
     name:{
@@ -26,5 +28,18 @@ const UserSchema = Schema({
     timestamps:true
 })
 
+// Encrypt password before saving user changes
+UserSchema.pre('save', async function (next){
+    // Skip, if password is not modified
+    if(!this.isModified('password'))next()
+    
+    // Hash and save the password
+    const salt = await bcrypt.genSalt(12)
+    this.password =await bcrypt.hash( this.password, salt)
+})
 
+// static method for validating hashed password
+UserSchema.methods.matchPassword=async function(password) {
+    return await bcrypt.compare(password,this.password)
+}
 module.exports = model("User", UserSchema)
