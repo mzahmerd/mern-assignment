@@ -21,6 +21,9 @@ const UserSchema = Schema({
         minlength: [6,'password must be atleast 6 characters'],
         select: false
     },
+},
+{
+    timestamps:true
 })
 
 

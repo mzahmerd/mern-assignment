@@ -14,6 +14,9 @@ const PostSchema = Schema({
         ref:"User",
         required:[true, "Post must have an author"]
     }
+},
+{
+    timestamps:true
 })
 
 module.exports = model("Post", PostSchema)

@@ -15,6 +15,9 @@ const CommentSchema = Schema({
         ref:"User",
         required:[true, "Comment must have an author"]
     }
+},
+{
+    timestamps:true
 })
 
 
