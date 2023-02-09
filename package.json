@@ -1,0 +1,31 @@
+{
+  "name": "mern-assignment",
+  "version": "1.0.0",
+  "description": "This is an assignment for MERN Stack interview at Qurinom Solutions",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mzahmerd/mern-assignment.git"
+  },
+  "keywords": [
+    "NodeJs",
+    "Express",
+    "MongoDB",
+    "React"
+  ],
+  "author": "Muhammad Zubairu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mzahmerd/mern-assignment/issues"
+  },
+  "homepage": "https://github.com/mzahmerd/mern-assignment#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.1"
+  }
+}
