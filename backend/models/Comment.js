@@ -18,4 +18,4 @@ const CommentSchema = Schema({
 })
 
 
-module.exports = model("User", CommentSchema)
+module.exports = model("Comment", CommentSchema)

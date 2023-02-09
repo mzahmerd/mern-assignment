@@ -16,4 +16,4 @@ const PostSchema = Schema({
     }
 })
 
-module.exports = model("User", PostSchema)
+module.exports = model("Post", PostSchema)
