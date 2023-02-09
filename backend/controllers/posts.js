@@ -6,7 +6,7 @@ const ErrorResponse=require('../utils/errorResponse')
 // @route GET /posts
 // @access private
 exports.getPosts=asyncHandler(async (req,res,next) => {
-    const posts = await Post.find()
+    const posts = await Post.find().populate("author comments")
     
     res.status(200).send({
         success:true,
@@ -18,8 +18,8 @@ exports.getPosts=asyncHandler(async (req,res,next) => {
 // @route GET /posts/:id
 // @access private
 exports.getPost=asyncHandler(async (req,res,next) => {
-    const post=await Post.findById(req.params.id)
-    
+    const post=await Post.findById(req.params.id).populate("author comments")
+
     if(!post) {
         return next(new ErrorResponse('Post not found!',404))
     }
@@ -33,7 +33,8 @@ exports.getPost=asyncHandler(async (req,res,next) => {
 // @route POST /posts
 // @access private
 exports.addPost=asyncHandler(async (req,res,next) => {
-
+    // attached author from currently logged in user id
+    req.body.author = req.user._id
     const post=await Post.create(req.body)
 
     res.status(201).send({
@@ -46,11 +47,12 @@ exports.addPost=asyncHandler(async (req,res,next) => {
 // @route PUT /posts/:id
 // @access private
 exports.updatePost=asyncHandler(async (req,res,next) => {
-    let post=await Post.findById(req.params.id)
+    let post=await Post.findById(req.params.id).populate("author")
     if(!post) {
         return next(new ErrorResponse('Post not found!',404))
     }
-    await post.updateOne(req.body)
+    
+    post =  await Post.findByIdAndUpdate(req.params.id, req.body,{new:true})
 
     res.status(200).send({
         success: true,

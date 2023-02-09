@@ -4,8 +4,11 @@ const {getUsers,addUser,getUser,updateUser,deleteUser}=require('../controllers/u
 
 const {protect} = require("../middlewares/auth")
 
+// Protect routes from unauthorized access
+router.use(protect)
+
 router.route('/')
-    .get(protect, getUsers)
+    .get(getUsers)
     .post(addUser)
 router.route('/:id')
     .get(getUser)

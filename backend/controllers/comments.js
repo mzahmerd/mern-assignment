@@ -6,7 +6,9 @@ const ErrorResponse=require('../utils/errorResponse')
 // @route GET /comments
 // @access private
 exports.getComments=asyncHandler(async (req,res,next) => {
-    const comments = await Comment.find()
+    const {postId} = req.params
+
+    const comments = await Comment.find({post:postId}).populate("author")
     
     res.status(200).send({
         success:true,
@@ -18,7 +20,7 @@ exports.getComments=asyncHandler(async (req,res,next) => {
 // @route GET /comments/:id
 // @access private
 exports.getComment=asyncHandler(async (req,res,next) => {
-    const comment=await Comment.findById(req.params.id)
+    const comment=await Comment.findById(req.params.id).populate("author")
     if(!comment) {
         return next(new ErrorResponse('Comment not found!',404))
     }
@@ -32,7 +34,12 @@ exports.getComment=asyncHandler(async (req,res,next) => {
 // @route POST /comments
 // @access private
 exports.addComment=asyncHandler(async (req,res,next) => {
-
+    const {postId} = req.params
+console.log(postId)
+    // attach post ID
+    req.body.post = postId
+    // attach author from currently logged in user id
+    req.body.author = req.user._id
     const comment=await Comment.create(req.body)
 
     res.status(201).send({
@@ -45,11 +52,13 @@ exports.addComment=asyncHandler(async (req,res,next) => {
 // @route PUT /comments/:id
 // @access private
 exports.updateComment=asyncHandler(async (req,res,next) => {
-    let comment=await Comment.findById(req.params.id)
+    let comment=await Comment.findById(req.params.id).populate("author")
     if(!comment) {
         return next(new ErrorResponse('Comment not found!',404))
     }
-    await comment.updateOne(req.body)
+    
+    comment =  await Comment.findByIdAndUpdate(req.params.id, req.body,{new:true})
+    
 
     res.status(200).send({
         success: true,
