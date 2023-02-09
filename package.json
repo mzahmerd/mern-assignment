@@ -4,7 +4,7 @@
   "description": "This is an assignment for MERN Stack interview at Qurinom Solutions",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server":"node ./backend/server.js"
   },
   "repository": {
     "type": "git",
