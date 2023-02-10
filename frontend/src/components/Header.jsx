@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div>
-      <ul style={{listStyle:"none"}}>
-      <li>
+    <div className="header">
+      <ul>
+        <li>
           <Link to="/">Posts</Link>
         </li>
         <li>
@@ -14,7 +14,8 @@ export default function Header() {
         <li>
           <Link to="/register">Register</Link>
         </li>
-        <button>Logout</button>
+
+        <button className="btn ">Logout</button>
       </ul>
     </div>
   );

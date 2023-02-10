@@ -1,41 +1,19 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate()
+
   return (
     <div>
-      <section id="new-post">
-        <div>
-          <h2>Create new post</h2>
-          <div>
-            <form
-              onSubmit={(e) => {
-                alert("submitted");
-                e.preventDefault();
-              }}
-            >
-              <div>
-                <label style={{ display: "block" }} htmlFor="text">
-                  Post Title
-                </label>
-                <input type="text" />
-              </div>
-              <div>
-                <label style={{ display: "block" }} htmlFor="text">
-                  Post Content
-                </label>
-                <textarea name="text" id="text" />
-              </div>
-              <button>Post</button>
-            </form>
-          </div>
-        </div>
-      </section>
-
       <section>
-        <h2>Posts</h2>
+      <h2>Posts</h2>
+
+        <div align={'right'}>
+          <button className="btn" onClick={() =>navigate('/new-post')}>Add Post</button>
+        </div>
         <div>
-          <ul style={{ listStyle: "none" }}>
+          <ul >
             <li>
               <div>
                 <Link to='/posts/1'><h4>The world of AI</h4></Link>
