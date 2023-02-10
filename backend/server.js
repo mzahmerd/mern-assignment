@@ -2,6 +2,8 @@ const express = require("express")
 require("dotenv").config()
 const connectDb = require("./config/db")
 const errorHandler=require("./middlewares/error");
+const cors=require('cors')
+
 
 
 // Importing routes
@@ -17,7 +19,8 @@ connectDb()
 
 // server middlewares
 app.use(express.json());
-
+// Enable CORS
+app.use(cors())
 
 // mounting routes
 app.use('/api/auth', auth)
