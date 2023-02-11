@@ -1,9 +1,31 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
+import { getAllPosts, reset } from "../features/posts/postSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+
 
 export default function Home() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  const { posts, isError, isSuccess, message} = useSelector(state => state.posts)
+
+  useEffect(() =>{
+    // on component dismount, reset the state
+    return () =>{
+      if(isSuccess){
+        dispatch(reset())
+      }
+    }
+  } ,[dispatch, isSuccess])
+
+  useEffect(() =>{
+    dispatch(getAllPosts())
+    if(isError){
+      alert(message)
+    }
+  }, [dispatch, message, isError])
   return (
     <div>
       <section>
@@ -14,30 +36,18 @@ export default function Home() {
         </div>
         <div>
           <ul >
-            <li>
+            {posts.map((post, i)=>{
+              return (
+                <li key={i}>
               <div>
-                <Link to='/posts/1'><h4>The world of AI</h4></Link>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Possimus maxime excepturi, sed libero vitae eligendi magni
-                  error corporis! Cupiditate rem harum nulla accusamus id
-                  laborum magni unde tenetur fuga repellendus.
-                </p>
+                <Link to={`/posts/${post._id}`}><h4>{post.title}</h4></Link>
+                <p>{post.text}</p>
+                <small>author: {post.author && post.author.name }</small>
                 <hr />
               </div>
             </li>
-            <li>
-              <div>
-              <Link to='/posts/1'><h4>New Post</h4></Link>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Possimus maxime excepturi, sed libero vitae eligendi magni
-                  error corporis! Cupiditate rem harum nulla accusamus id
-                  laborum magni unde tenetur fuga repellendus.
-                </p>
-                <hr />
-              </div>
-            </li>
+              )
+            })}
           </ul>
         </div>
       </section>

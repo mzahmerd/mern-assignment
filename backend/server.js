@@ -3,6 +3,7 @@ require("dotenv").config()
 const connectDb = require("./config/db")
 const errorHandler=require("./middlewares/error");
 const cors=require('cors')
+const mogran = require('morgan')
 
 
 
@@ -16,6 +17,11 @@ const app = express()
 
 // Connect to mongoDB
 connectDb()
+
+//Dev logging middleware
+if(process.env.NODE_ENV==="development") {
+    app.use(morgan("dev"));
+  }
 
 // server middlewares
 app.use(express.json());
