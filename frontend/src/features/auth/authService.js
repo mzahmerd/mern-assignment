@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:4000/api/auth'
+const API_URL = 'https://mern-mzahmerd.koyeb.app/api/auth'
 
 const register = async (userData)=>{
     const response = await axios

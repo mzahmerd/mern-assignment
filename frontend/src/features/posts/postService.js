@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {config} from 'dotenv'
 
-const API_URL = 'http://localhost:4000/api/posts'
+const API_URL = 'https://mern-mzahmerd.koyeb.app/api/posts'
 
 const getPosts = async (token)=>{
     const config = {
