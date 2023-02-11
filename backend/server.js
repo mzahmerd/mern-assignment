@@ -18,6 +18,21 @@ const app = express()
 // Connect to mongoDB
 connectDb()
 
+// Getting cors enabled domain  from env
+const domainsFromEnv=process.env.CORS_DOMAINS||"http://localhost:3000"
+
+const whitelist=domainsFromEnv.split(",").map(item => item.trim())
+const corsOptions={
+    origin: function(origin,callback) {
+        if(!origin||whitelist.indexOf(origin)!==-1) {
+            callback(null,true)
+        } else {
+            callback(new ErrorResponse("Not allowed by CORS",400))
+        }
+    },
+    credentials: true,
+}
+
 //Dev logging middleware
 if(process.env.NODE_ENV==="development") {
     app.use(morgan("dev"));
@@ -26,7 +41,7 @@ if(process.env.NODE_ENV==="development") {
 // server middlewares
 app.use(express.json());
 // Enable CORS
-app.use(cors())
+app.use(cors(corsOptions))
 
 // mounting routes
 app.use('/api/auth', auth)
