@@ -42,7 +42,8 @@ export default function Home() {
               <div>
                 <Link to={`/posts/${post._id}`}><h4>{post.title}</h4></Link>
                 <p>{post.text}</p>
-                <small>author: {post.author && post.author.name }</small>
+                <small><strong>author: </strong>{post.author && post.author.name }</small>{' '}
+                <small><strong>Posted on:</strong> {new Date(post.createdAt).toLocaleString('en-US')}</small>
                 <hr />
               </div>
             </li>

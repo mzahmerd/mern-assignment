@@ -32,10 +32,6 @@ export default function EditPost() {
     if (isError) {
       alert(message);
     }
-    if (isSuccess) {
-      alert("updated")
-      // navigate(`/posts/${postId}`)
-    }
     dispatch(reset())
   }, [dispatch, message, isError]);
 
@@ -54,6 +50,7 @@ export default function EditPost() {
       text,
     };
     dispatch(updatePost(postData));
+    navigate(`/posts/${postId}`)
   };
   return (
     <div>

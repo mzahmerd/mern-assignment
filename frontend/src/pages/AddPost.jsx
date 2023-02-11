@@ -21,12 +21,10 @@ export default function AddPost() {
       alert(message);
     }
 
-    if (isSuccess && post) {
+    if (isSuccess) {
       dispatch(reset());
-      navigate("/");
     }
-    dispatch(reset());
-  }, [dispatch, navigate, message, isError, isSuccess]);
+  }, [navigate, message, isError, isSuccess]);
 
   const onDataChange = (evt) => {
     setPostData((prevState) => ({
@@ -43,6 +41,7 @@ export default function AddPost() {
     };
 
     dispatch(addPost(postData));
+    navigate("/");
   };
 
   return (

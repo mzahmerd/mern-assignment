@@ -20,23 +20,20 @@ export default function ViewPost() {
         dispatch(reset());
       }
     };
-  }, [dispatch, isSuccess]);
+  }, [isSuccess]);
 
   useEffect(() => {
     dispatch(getPost(postId));
     if (isError) {
       alert(message);
     }
-    if(isSuccess){
-      alert('deleted')
-    }
-  }, [dispatch, message, isError]);
+  }, [message, isError]);
 
   const onDeletePost = (e) =>{
     e.preventDefault()
 
     dispatch(deletePost(postId));
-    
+    navigate('/')
   }
   return (
     <div>
